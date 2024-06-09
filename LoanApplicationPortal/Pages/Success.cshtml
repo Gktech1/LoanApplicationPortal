@@ -1,0 +1,20 @@
+﻿@page
+@model LoanApplicationPortal.Pages.SuccessModel
+@{
+    ViewData["Title"] = "Application Submitted";
+}
+<link rel="stylesheet" href="~/css/summary.css" />
+
+<div class="container">
+    <div class="card">
+        <h2>Application Submitted</h2>
+        <div class="card-body">
+            <p>Thank you for your application, <strong>@Model.LoanApplication.Name</strong>. Your application will be evaluated.</p>
+            <div class="details">
+                <p><strong>Loan Amount:</strong> NGN @Model.LoanApplication.LoanRequestAmount.ToString("N2")</p>
+                <p><strong>Monthly Repayment:</strong> NGN @Model.MonthlyRepayment.ToString("N2")</p>
+                <p><strong>Total Amount Payable:</strong> NGN @Model.TotalPayable.ToString("N2")</p>
+            </div>
+        </div>
+    </div>
+</div>

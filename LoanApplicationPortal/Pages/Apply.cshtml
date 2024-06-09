@@ -1,0 +1,60 @@
+﻿@page
+@model LoanApplicationPortal.Pages.ApplyModel
+@{
+    ViewData["Title"] = "Loan Application";
+}
+<style>
+    .submit-application {
+        color: #fff;
+        background-color: #80a0c2;
+        border-color: #80a0c2;
+    }
+</style>
+<div class="d-flex pt-2 justify-content-center">
+    <div class="w-50" style="border:1px solid #d1d1d1; box-shadow: 0px 4px 12px -3px rgba(0,0,0,0.75); border-radius: 10px 10px 10px 10px;">
+        <h2 class="p-2 text-center text-white" style="background-color: #80a0c2">Loan Application</h2>
+        <form method="post" class="p-1">
+            <div class="form-group">
+                <label asp-for="LoanApplication.Name" class="p-1"></label>
+                <input asp-for="LoanApplication.Name" class="form-control" />
+                <span asp-validation-for="LoanApplication.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LoanApplication.Address" class="p-1"></label>
+                <textarea asp-for="LoanApplication.Address" class="form-control"></textarea>
+                <span asp-validation-for="LoanApplication.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LoanApplication.DateOfBirth" class="p-1"></label>
+                <input asp-for="LoanApplication.DateOfBirth" class="form-control" />
+                <span asp-validation-for="LoanApplication.DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LoanApplication.Email" class="p-1"></label>
+                <input asp-for="LoanApplication.Email" class="form-control" />
+                <span asp-validation-for="LoanApplication.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LoanApplication.HomeOwner" class="p-1"></label>
+                <select asp-for="LoanApplication.HomeOwner" class="form-control">
+                    <option value="">-- Select Home Owner Status --</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+                <span asp-validation-for="LoanApplication.HomeOwner" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LoanApplication.LoanRequestAmount" class="p-1"></label>
+                <input asp-for="LoanRequestAmountString" class="form-control" id="loanAmountInput" />
+                <span asp-validation-for="LoanRequestAmountString" class="text-danger"></span>
+            </div>
+            <button type="submit" class="submit-application btn btn-primary my-3">Submit</button>
+        </form>
+    </div>
+</div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/js/site.js"></script>
+
+
+
+
