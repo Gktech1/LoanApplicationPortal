@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 public class LoanApplication
 {
+    [Key]
     public int Id { get; set; }
 
     [Required, StringLength(20, MinimumLength = 2)]
@@ -17,6 +18,10 @@ public class LoanApplication
 
     [Required, EmailAddress]
     public string Email { get; set; }
+
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTime? AdminActionAt { get; set; }
+
 
     [Required]
     public bool HomeOwner { get; set; } 
