@@ -1,25 +1,19 @@
-﻿using LoanApplicationPortal.Data;
+﻿using LoanApplicationPortal.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Globalization;
-using System.Threading.Tasks;
 
 namespace LoanApplicationPortal.Pages
 {
-    public class ApplyModel : PageModel
+    public class ApplyModel(ILoanApplicationRepository loanApplicationRepo) : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ILoanApplicationRepository _loanApplicationRepo = loanApplicationRepo;
 
         [BindProperty]
         public LoanApplication LoanApplication { get; set; }
 
         [BindProperty]
         public string LoanRequestAmountString { get; set; }
-
-        public ApplyModel(ApplicationDbContext context)
-        {
-            _context = context;
-        }
 
         public void OnGet()
         {
@@ -35,8 +29,7 @@ namespace LoanApplicationPortal.Pages
                 LoanApplication.LoanRequestAmount = amount;
 
                 // Add the loan application to the context and save changes
-                _context.LoanApplications.Add(LoanApplication);
-                await _context.SaveChangesAsync();
+                await  _loanApplicationRepo.CreateLoanApplication(LoanApplication);
 
                 // Redirect to the success page with the loan application ID
                 return RedirectToPage("Success", new { id = LoanApplication.Id });

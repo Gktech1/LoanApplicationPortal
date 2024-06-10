@@ -1,25 +1,19 @@
 using LoanApplicationPortal.Data;
+using LoanApplicationPortal.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace LoanApplicationPortal.Pages
 {
-    public class DeclinedRequestModel : PageModel
+    public class DeclinedRequestModel(ILoanApplicationRepository loanApplicationRepo) : PageModel
     {
-        private readonly ApplicationDbContext _context;
-
-        public DeclinedRequestModel(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        private readonly ILoanApplicationRepository _loanApplicationRepo = loanApplicationRepo;
 
         public IList<LoanApplication> LoanApplications { get; set; }
         public async Task OnGetAsync()
         {
-            LoanApplications = await _context.LoanApplications
-                                              .Where(a => a.Status == "Declined")
-                                              .ToListAsync();
+            LoanApplications = await _loanApplicationRepo.GetLoanApplicationDeclined(); 
         }
     }
 }

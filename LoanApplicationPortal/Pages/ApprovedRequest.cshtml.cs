@@ -1,25 +1,20 @@
 using LoanApplicationPortal.Data;
+using LoanApplicationPortal.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace LoanApplicationPortal.Pages
 {
-    public class ApprovedRequestModel : PageModel
+    public class ApprovedRequestModel(ILoanApplicationRepository loanApplicationRepo) : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ILoanApplicationRepository _loanApplicationRepo = loanApplicationRepo;
 
-        public ApprovedRequestModel(ApplicationDbContext context)
-        {
-            _context = context;
-        }
 
         public IList<LoanApplication> LoanApplications { get; set; }
         public async Task OnGetAsync()
         {
-            LoanApplications = await _context.LoanApplications
-                                              .Where(a => a.Status == "Approved")
-                                              .ToListAsync();
+            LoanApplications = await _loanApplicationRepo.GetLoanApplicationApproved();
         }
     }
 }

@@ -1,4 +1,6 @@
 using LoanApplicationPortal.Data;
+using LoanApplicationPortal.Data.Repositories.Implementations;
+using LoanApplicationPortal.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace LoanApplicationPortal
@@ -9,13 +11,11 @@ namespace LoanApplicationPortal
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            /* builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));*/
-
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
                 new MySqlServerVersion(new Version(8, 0, 37))));
+
+            builder.Services.AddScoped<ILoanApplicationRepository, LoanApplicationRepository>();
 
 
             builder.Services.AddRazorPages();
